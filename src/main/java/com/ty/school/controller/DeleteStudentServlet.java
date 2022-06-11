@@ -21,13 +21,17 @@ public class DeleteStudentServlet extends HttpServlet {
 		HttpSession httpSession = req.getSession();
 		String user = (String) httpSession.getAttribute("user");
 
-		if (user != null && user.equalsIgnoreCase("Imtiyaz")) {
+		if (user != null) {
 			String id = req.getParameter("id");
 			StudentService service = new StudentService();
 			service.removeStudentById(Integer.parseInt(id));
 
-			RequestDispatcher dispatcher = req.getRequestDispatcher("/view");
-			dispatcher.forward(req, resp);
+			/*
+			 * RequestDispatcher dispatcher = req.getRequestDispatcher("/view");
+			 * dispatcher.forward(req, resp);
+			 */
+			resp.sendRedirect("view");
+
 		} else {
 			PrintWriter printWriter = resp.getWriter();
 			printWriter.write("<html><body><h1>Not an authorized user</h1></body></html>");

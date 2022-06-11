@@ -25,7 +25,7 @@ public class ViewStudentServlet extends HttpServlet {
 		HttpSession httpSession = req.getSession();
 		String user = (String) httpSession.getAttribute("user");
 
-		if (user != null && user.equalsIgnoreCase("Imtiyaz")) {
+		if (user != null) {
 
 			List<Student> list = new ArrayList<Student>();
 			StudentService service = new StudentService();

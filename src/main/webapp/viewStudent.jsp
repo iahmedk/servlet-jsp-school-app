@@ -3,12 +3,13 @@
 <%@page import="com.ty.school.dto.Student"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:include page="./subnavbar.html"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./css/signin.css">
 <meta charset="UTF-8">
 <title>View Student</title>
-<!-- <link rel="stylesheet" type="text/css" href="login.css"/> -->
 </head>
 <body>
 	<table border="2px" cellpadding=2px>

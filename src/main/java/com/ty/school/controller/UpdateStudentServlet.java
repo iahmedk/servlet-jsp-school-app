@@ -23,7 +23,7 @@ public class UpdateStudentServlet extends HttpServlet {
 		HttpSession httpSession = req.getSession();
 		String user = (String) httpSession.getAttribute("user");
 
-		if (user != null && user.equalsIgnoreCase("Imtiyaz")) {
+		if (user != null) {
 			String id = req.getParameter("studId");
 			String name = req.getParameter("studName");
 			String email = req.getParameter("studEmail");
@@ -38,8 +38,9 @@ public class UpdateStudentServlet extends HttpServlet {
 			StudentService service = new StudentService();
 
 			service.updateStudentById(Integer.parseInt(id), student);
-			RequestDispatcher dispatcher = req.getRequestDispatcher("createView.html");
-			dispatcher.forward(req, resp);
+			//RequestDispatcher dispatcher = req.getRequestDispatcher("");
+			//dispatcher.forward(req, resp);
+			resp.sendRedirect("view");
 
 		} else {
 			PrintWriter printWriter = resp.getWriter();

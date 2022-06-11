@@ -1,8 +1,8 @@
 package com.ty.school.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,27 +18,36 @@ public class CreateStudentServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		HttpSession httpSession = req.getSession();
-		httpSession.setAttribute("user", "Imtiyaz");
-		
-		String name = req.getParameter("studName");
-		String email = req.getParameter("studEmail");
-		String marks = req.getParameter("studMarks");
-		String phone = req.getParameter("studPhone");
+		String user = (String) httpSession.getAttribute("user");
 
-		Student student = new Student();
-		student.setName(name);
-		student.setEmail(email);
-		student.setMarks(Double.parseDouble(marks));
-		student.setMobile(Long.parseLong(phone));
+		if (user != null) {
+			String name = req.getParameter("studName");
+			String email = req.getParameter("studEmail");
+			String marks = req.getParameter("studMarks");
+			String phone = req.getParameter("studPhone");
 
-		StudentService createStudentService = new StudentService();
-		student = createStudentService.createStudent(student);
+			Student student = new Student();
+			student.setName(name);
+			student.setEmail(email);
+			student.setMarks(Double.parseDouble(marks));
+			student.setMobile(Long.parseLong(phone));
 
-		if (student != null) {
-			RequestDispatcher dispatcher = req.getRequestDispatcher("createView.html");
-			dispatcher.forward(req, resp);
+			StudentService createStudentService = new StudentService();
+			student = createStudentService.createStudent(student);
+
+			if (student != null) {
+				/*
+				 * RequestDispatcher dispatcher = req.getRequestDispatcher("menu.html");
+				 * dispatcher.forward(req, resp);
+				 */
+				resp.sendRedirect("subnavbar.html");
+			}
+
+		} else {
+			PrintWriter printWriter = resp.getWriter();
+			printWriter.write("<html><body><h1>Not an authorized user</h1></body></html>");
 		}
 	}
 

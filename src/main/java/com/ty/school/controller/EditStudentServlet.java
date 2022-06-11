@@ -23,7 +23,7 @@ public class EditStudentServlet extends HttpServlet {
 		HttpSession httpSession = req.getSession();
 		String user = (String) httpSession.getAttribute("user");
 
-		if (user != null && user.equalsIgnoreCase("Imtiyaz")) {
+		if (user != null) {
 			String id = req.getParameter("id");
 			StudentService service = new StudentService();
 			Student student = service.getStudentById(Integer.parseInt(id));
@@ -31,8 +31,12 @@ public class EditStudentServlet extends HttpServlet {
 			if (student != null) {
 				// forward to editStudent.jsp
 				req.setAttribute("student", student);
+
 				RequestDispatcher dispatcher = req.getRequestDispatcher("editStudent.jsp");
 				dispatcher.forward(req, resp);
+
+				// resp.sendRedirect("editStudent.jsp"); it wont work bcos it will nullyfy req &
+				// res objects & causes NPE
 			}
 		} else {
 			PrintWriter printWriter = resp.getWriter();
